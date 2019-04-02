@@ -11,11 +11,13 @@
     "react": "16.6.3",
     "react-native": "^0.58.6",
     "react-native-image-zoom-viewer": "^2.2.25",
+    "react-native-pdf": "^5.0.12",
     "react-native-router-flux": "^4.0.6",
     "react-native-svg": "^9.3.6",
     "react-native-svg-uri": "^1.2.3",
     "react-native-typography": "^1.4.0",
-    "react-native-vector-icons": "^6.3.0"
+    "react-native-vector-icons": "^6.3.0",
+    "rn-fetch-blob": "^0.10.15"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",

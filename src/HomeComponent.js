@@ -17,9 +17,9 @@ export default class HomeComponent extends Component{
 
 	render(){
 		return(
-<Container >
+<Container style={{backgroundColor: 'black'}}>
 <Content>
-<ImageBackground style={{width, height}} source={{uri:'https://www.rotary.org/sites/all/themes/rotary_rotaryorg/images/home/AmbientWebDemo,w_1400.jpg'}} blurRadius={3}>
+<ImageBackground style={{width, height}} source={require('./bg.jpg')} blurRadius={3}>
 			
 			
 			
@@ -67,6 +67,7 @@ color:'#fff',
 textAlign:'justify',
 fontSize:50,
 marginRight:10,
+marginVertical:17,
 ...systemWeights.bold
 }
 const yt={

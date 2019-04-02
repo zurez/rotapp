@@ -16,11 +16,17 @@ import Gallery from './src/components/Gallery';
 import OfficeBearers from './src/components/OfficeBearers';
 import EventDetail from './src/components/EventDetail';
 import HomeComponent from './src/HomeComponent';
+import Profile from './src/components/Profile';
+import {Icon} from 'native-base';
+import NewsLetter from './src/components/NewsLetter';
+import PdfViewer from './src/components/Pdf';
 
 export default class App extends Component{
   render() {
     return (
-      <Router>
+      <Router navigationBarStyle={{ backgroundColor: "#1e3c64"}}
+      titleStyle={{color:'white'}}
+      >
 
          <Stack key="root">
         
@@ -28,7 +34,8 @@ export default class App extends Component{
               hideNavBar
               key="drawer"
               
-             
+              drawerIcon={<Icon name='md-menu' type='Ionicons' 
+              style={{color:'white'}}/>}
               contentComponent={SideBar}
               drawerWidth={300}
            >
@@ -38,7 +45,11 @@ export default class App extends Component{
                 <Scene key='office_bearers' component={OfficeBearers} title='Office Bearers'/>
          
                 <Scene key='event_detail' component={EventDetail} title='Details'/>
-       
+
+                <Scene key='profile' component={Profile} title='Profile'/>
+
+                <Scene key='newsletter' component={NewsLetter} title='NewsLetter'/>
+                <Scene key='pdf' component={PdfViewer} title='PDF'/>
         </Drawer>
        </Stack>
               

@@ -37,7 +37,7 @@ const datas = [
   },
   {
     name: "Profile",
-    route: "NHAccordion",
+    route: "profile",
     icon: "face-profile",
     type:'MaterialCommunityIcons',
     bg: "#C5F442",
@@ -45,7 +45,7 @@ const datas = [
   },
   {
     name: "News Letter",
-    route: "Actionsheet",
+    route: "pdf",
     icon: "newspaper-o",
     type:"FontAwesome",
     bg: "#C5F442"
