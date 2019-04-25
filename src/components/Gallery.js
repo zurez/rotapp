@@ -9,30 +9,8 @@ import {
 
 import ImageViewer from 'react-native-image-zoom-viewer';
 import {List,ListItem} from 'native-base';
-
-const images = [{
-    url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460'
-
-
-},
-{
-    url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460'
-
-
-}
-,
-{
-    url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460'
-
-
-},
-{
-    url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460'
-
-
-}
-
-]
+import {base_url} from '../../config';
+import { material } from 'react-native-typography'
 
 
 class Gallery extends Component {
@@ -41,21 +19,53 @@ class Gallery extends Component {
 	  super(props);
 	
 	  this.state = {
-	  	visible:false
+      visible:false,
+      gallery:[],
+      active:0
 	  };
-	}
+  }
+  
+  componentDidMount(){
+    const url=`${base_url}/gallery`;
+    
+    fetch(url).then(r=>r.json())
+    .then((gallery)=>this.setState({gallery}))
+    
+  }
+
+  render_list(){
+    return this.state.gallery.map((e,i)=>{
+      return(
+        
+      <ListItem onPress={()=>this.setState({visible:true,active:i})}
+      key={i}
+
+      itemDivider
+      >
+  
+      <Text style={material.title}>{e.title || 'Missing Title'}</Text>
+      </ListItem>
+      )
+    })
+  }
+
+
   render() {
+    const image_urls=(this.state.gallery[this.state.active])?
+    this.state.gallery[this.state.active].images.map((e)=>{
+       return {url:e.title}}):[]
+   
     return (
     	<View>
     	   <List>
-            <ListItem onPress={()=>this.setState({visible:true})}>
-              <Text>Images of Blood Donation Drive</Text>
-            </ListItem>
-            </List>
+            {this.render_list()}
+          </List>
 	      <Modal visible={this.state.visible} transparent={true}
 	      onRequestClose={()=>this.setState({visible:false})}
 	      >
-	                <ImageViewer imageUrls={images}/>
+	                <ImageViewer imageUrls={
+                    image_urls
+                    }/>
 	       </Modal>
        </View>
     );
@@ -63,7 +73,7 @@ class Gallery extends Component {
 }
 
 const styles = StyleSheet.create({
-
+  
 });
 
 

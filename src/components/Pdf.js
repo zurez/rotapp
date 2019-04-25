@@ -10,15 +10,20 @@ import {
 import {Content, Container} from 'native-base';
 import Pdf from 'react-native-pdf';
 
- const source = {uri:'http://www.orimi.com/pdf-test.pdf',cache:true};
-class PdfViewer extends Component {
-  render() {
-        const source = {uri:'http://samples.leanpub.com/thereactnativebook-sample.pdf',cache:true};
-        //const source = require('./test.pdf');  // ios only
-        //const source = {uri:'bundle-assets://test.pdf'};
 
-        //const source = {uri:'file:///sdcard/test.pdf'};
-        //const source = {uri:"data:application/pdf;base64,..."};
+class PdfViewer extends Component {
+
+    constructor(props){
+        super(props);
+        console.log(this.props)
+        this.state={
+            source:this.props.source
+        }
+    }
+  render() {
+      console.log(this.state.source)
+        const source = {uri:this.props.source,cache:true};
+       
 
         return (
             <View style={styles.container}>

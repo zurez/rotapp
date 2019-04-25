@@ -28,14 +28,14 @@ export default class HomeComponent extends Component{
 <Row style={{height: 100}}>
 <Col style={{ flexDirection: 'row',textAlign:'center',justifyContent:'center' }}>
 <Text style={[rt]}>Rotary</Text>
- <SvgUri
+{/*<SvgUri
     width="100"
     height="100"
     style={{textAlign:'center'}}
     source={{
       uri: 'https://www.rotary.org/sites/all/themes/rotary_rotaryorg/images/rotary-logo-white.svg',
     }}
-  />
+  />*/}
 </Col>
 </Row>
 			  <Row style={{height:100}}>

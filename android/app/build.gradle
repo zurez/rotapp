@@ -103,6 +103,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
     }
 
      signingConfigs {
@@ -148,6 +149,11 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-firebase')
+    implementation "com.google.android.gms:play-services-base:16.0.1"
+    implementation "com.google.firebase:firebase-core:16.0.6"
+    implementation "com.google.firebase:firebase-messaging:17.3.4"
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
     implementation project(':react-native-pdf')
     implementation project(':rn-fetch-blob')
     implementation project(':react-native-svg')
@@ -163,3 +169,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'

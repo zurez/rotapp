@@ -23,7 +23,7 @@ const datas = [
   },
   {
     name: "Messages",
-    route: "Header",
+    route: "message",
     icon: "mail",
     bg: "#477EEA",
     types: "11"
@@ -45,7 +45,7 @@ const datas = [
   },
   {
     name: "News Letter",
-    route: "pdf",
+    route: "newsletter",
     icon: "newspaper-o",
     type:"FontAwesome",
     bg: "#C5F442"
