@@ -1,23 +1,57 @@
 import React, { Component } from 'react';
-import { View,Image} from 'react-native';
-import { Container, Header, Content, Card, CardItem, Body, Text } from 'native-base';
+import { View,Image,AsyncStorage} from 'react-native';
+import { Container, Header, Content, Card, CardItem, Body, Text ,Button} from 'native-base';
 import {base_url} from '../../config';
+import { Actions } from 'react-native-router-flux';
 export default class Message extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        messages:[]
+        messages:[],
+        is_registered:false,
+        user_id:undefined,
+        event_id:0
     };
   }
   componentDidMount(){
     const url=`${base_url}/messages`;
+    AsyncStorage.getItem('user_id').then((user_id)=>{
+      
+      if(user_id){
+      
+        this.setState({user_id,is_registered:true},()=>{
+
+          fetch(url).then(r=>r.json())
+          .then((messages)=>this.setState({messages}))
+
+          
+        });
+      }
+      
+    })
     
-    fetch(url).then(r=>r.json())
-    .then((messages)=>this.setState({messages}))
+
+    
     
   }
 
- messages(){
+  volunteer=(event_id)=>{
+    const url=`${base_url}/volunteer`;
+    
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: this.state.user_id,
+        event_id
+      }),
+    });
+  }
+
+  messages(){
    return this.state.messages.map((e,i)=>{
        return(
         <Card key={i}>
@@ -35,9 +69,24 @@ export default class Message extends Component {
             </Text>
           </Body>
         </CardItem>
-        <CardItem footer bordered>
-          <Text>{e.subtitle || 'Sent by President'}</Text>
-        </CardItem>
+        
+        {(this.state.is_registered)?<Button block
+          onPress={
+            (e)=>this.volunteer(e.id)
+          }
+          
+        >
+            <Text>Volunteer</Text>
+          </Button>:
+          <Button block warning
+          onPress={
+            ()=>Actions.reset('signup')
+          }
+          >
+          <Text>Please register to volunteer</Text>
+          </Button>
+        }
+       
       </Card>
     
        )

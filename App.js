@@ -8,8 +8,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import {Router,Scene,Stack,Drawer} from 'react-native-router-flux';
+import {Platform, StyleSheet, Text, View,AsyncStorage} from 'react-native';
+import {Router,Scene,Stack,Drawer,Lightbox} from 'react-native-router-flux';
 import {LandingComponent} from './src/LandingComponent';
 import SideBar from './src/components/DrawerContent';
 import Gallery from './src/components/Gallery';
@@ -22,6 +22,8 @@ import NewsLetter from './src/components/NewsLetter';
 import PdfViewer from './src/components/Pdf';
 import firebase from 'react-native-firebase';
 import Message from './src/components/Message';
+import Login from './src/components/login';
+import SignUp from './src/components/signup';
 
 export default class App extends Component{
 
@@ -90,7 +92,7 @@ export default class App extends Component{
   componentDidMount() {
 
     this.getToken()
-
+    
     this.createChannel()
     this.messageListener = firebase.messaging().onMessage((message) => {
       alert('Received a message')
@@ -135,8 +137,9 @@ export default class App extends Component{
               contentComponent={SideBar}
               drawerWidth={300}
            >
+      
            <Stack key="root">
-               <Scene key="home" component={HomeComponent} title='Home' initial/>
+               <Scene key="home" component={HomeComponent} title='Home' />
                 <Scene  key='events' component={LandingComponent}  title="Events"/>
                 <Scene  key='gallery' component={Gallery} title="Gallery"/>
                 <Scene key='office_bearers' component={OfficeBearers} title='Office Bearers'/>
@@ -147,9 +150,14 @@ export default class App extends Component{
 
                 <Scene key='newsletter' component={NewsLetter} title='NewsLetter'/>
 
-                <Scene key='pdf' component={PdfViewer} title='PDF'/>
+                <Scene key='pdf' component={PdfViewer} title='NewsLetter'/>
                 <Scene key='message' component={Message} title='Messages'/>
+                
+                <Scene key="login" component={Login} initial />
+                <Scene key="signup" component={SignUp}/>
                 </Stack>
+                
+                
         </Drawer>
       
               

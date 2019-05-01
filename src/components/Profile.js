@@ -4,13 +4,56 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 import {Icon,List, ListItem,Container,Content} from 'native-base';
-
+import { Actions } from 'react-native-router-flux';
+import {base_url} from '../../config';
 export default class Profile extends Component {
 
+  constructor(props){
+    super(props)
+    this.state={
+      volunteers:[],
+      user:{}
+    }
+  }
+
+  volunteer=()=>{
+    const url=`${base_url}/volunteer/single/${this.state.user_id}`;
+    
+    fetch(url).then(r=>r.json())
+    .then((volunteers)=>this.setState({volunteers}))
+  }
+  componentDidMount = () => {
+    AsyncStorage.getItem('user_id').then((user_id)=>{
+      if(!user_id){
+        Actions.reset('login')
+      }
+      AsyncStorage.getItem('user').then(user=>{
+        const ruser =JSON.parse(user)
+        this.setState({user:ruser,user_id:ruser.id},()=>this.volunteer());
+      })
+    })
+  };
+  
+  render_volunteer=()=>{
+    if(this.state.volunteers && this.state.volunteers.length>0){
+        return(
+          this.state.volunteers.map((e,i)=><ListItem key={i}>
+            <Text>{e.title}</Text>
+          </ListItem>)
+        )
+    }else{
+      return [
+        <ListItem>
+          <Text>Nothing to display...</Text>
+        </ListItem>
+      ]
+    }
+  }
   render() {
     return (
       <Container>
@@ -19,16 +62,16 @@ export default class Profile extends Component {
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>Md Zurez Tuba</Text>
+              <Text style={styles.name}>{this.state.user.name}</Text>
               
              
 		<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 		<Icon name="phone" style={[styles.pinfo,{marginVertical:3}]} type='AntDesign' />
-		<Text style={styles.pinfo}> +91-9891661654</Text>
+		<Text style={styles.pinfo}> +91-{this.state.user.phone || ''}</Text>
 		</View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between',marginTop:10 }}>
 		<Icon name="mail" style={[styles.pinfo,{marginVertical:4}]} type='AntDesign' />
-		<Text style={styles.pinfo}> zurez4u@gmail.com</Text>
+		<Text style={styles.pinfo}>{this.state.user.email || ''}</Text>
 		</View>
              
             </View>
@@ -38,54 +81,9 @@ export default class Profile extends Component {
            		<ListItem style={styles.bodyContent}>
            			<Text style={[styles.name,{fontSize:20,fontWeight:'800'}]}>Upcoming Events</Text>
            		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<Text style={styles.info}>Blood Donation Drive</Text>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<Text style={styles.info}>Cleanliness Drive</Text>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<Text style={styles.info}>Teach India</Text>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<Text style={styles.info}>Swachh Bharat</Text>
-           		</ListItem>
+           		  {this.render_volunteer()}
            </List>
-           <List style={styles.body}>
-           		<ListItem style={styles.bodyContent}>
-           			<Text style={[styles.name,{fontSize:20,fontWeight:'800'}]}>Interests</Text>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-					<Icon name="checkcircle" style={[styles.pinfo,{marginVertical:14,color:'green'}]} type='AntDesign' />
-				<Text style={styles.info}> Blood Donation Drive</Text>
-				</View>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-					<Icon name="checkcircle" style={[styles.pinfo,{marginVertical:14,color:'green'}]} type='AntDesign' />
-				<Text style={styles.info}> Swatchh Bharat</Text>
-				</View>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-					<Icon name="checkcircle" style={[styles.pinfo,{marginVertical:14,color:'green'}]} type='AntDesign' />
-				<Text style={styles.info}> Swatchh Bharat</Text>
-				</View>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-					<Icon name="checkcircle" style={[styles.pinfo,{marginVertical:14,color:'green'}]} type='AntDesign' />
-				<Text style={styles.info}> Swatchh Bharat</Text>
-				</View>
-           		</ListItem>
-           		<ListItem style={styles.bodyContent}>
-           			<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-					<Icon name="checkcircle" style={[styles.pinfo,{marginVertical:14,color:'green'}]} type='AntDesign' />
-				<Text style={styles.info}> Swatchh Bharat</Text>
-		</View>
-           		</ListItem>
-           </List>
+
         </View>
         </Content>
       </Container>

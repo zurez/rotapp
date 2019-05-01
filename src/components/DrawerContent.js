@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image } from "react-native";
+import { Image,AsyncStorage } from "react-native";
 import {
   Content,
   Text,
@@ -56,6 +56,12 @@ const datas = [
     type:"MaterialIcons",
     icon: "people",
     bg: "#4DCAE0"
+  },{
+    name: "Logout",
+    route:undefined,
+    type:"AntDesign",
+    icon: "logout",
+    bg: "red"
   },
 
 ];
@@ -86,7 +92,14 @@ class SideBar extends Component {
                 <ListItem
                 button
                 noBorder
-                onPress={() => Actions[data.route].call()}
+                onPress={() => {
+                  if(data.route){
+                    return Actions[data.route].call()
+                  }else{
+                    AsyncStorage.multiRemove(['user','user_id']).then(()=>Actions.reset('login'));
+                
+                  }
+                }}
 
                 >
                 <Left>
