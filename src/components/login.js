@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header,Item,Text,Input ,Form, Button} from 'native-base';
+import { Container, Header,Item,Text,Input ,Form, Button,Label} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {AsyncStorage} from 'react-native';
 import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
@@ -50,29 +50,34 @@ export default class Login extends Component {
     return (
       <Container>
       
-        <Grid style={{backgroundColor:'#b490aa'}}>
-        <Row style={{padding:10}}>
-          <Col height={80}>
-          <Kohana
-            style={{ backgroundColor: '#f9f5ed' }}
-            label={'Enter your phone number'}
-            iconClass={MaterialsIcon}
-            iconName={'phone'}
-            iconColor={'#f4d29a'}
-            inputPadding={5}
-            labelStyle={{ color: '#91627b' }}
-            inputStyle={{ color: '#91627b' }}
-            labelContainerStyle={{ padding:5 }}
-            iconContainerStyle={{ padding: 5 }}
-            onChangeText={(text)=>this.setState({number:text})}
+        <Grid >
+        <Row>
+          <Col>
+          <Form>
+            <Item floatingLabel>
+              <Label>Phone Number</Label>
+              <Input 
             keyboardType = 'numeric'
-            useNativeDriver
-        />
-                </Col>
-          </Row>
-          <Row style={{padding:10}}>
+              onChangeText={(text)=>this.setState({number:text})}
+              />
+            </Item>
+          </Form>
+          </Col>
+        </Row>
+    
+          <Row style={{padding:5}}>
+          <Col >
+              <Button warning success onPress={()=>{
+                return Actions.signup();
+               
+              }
+              }>
+                <Text>Sign Up</Text>
+              </Button>
+            </Col>
+            <Col></Col>
             <Col >
-              <Button block success onPress={()=>{
+              <Button  success onPress={()=>{
                 this.login()
                
               }
@@ -81,6 +86,7 @@ export default class Login extends Component {
               </Button>
             </Col>
           </Row>
+    
         </Grid>
       </Container>
     );

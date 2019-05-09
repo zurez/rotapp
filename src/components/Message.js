@@ -14,15 +14,15 @@ export default class Message extends Component {
     };
   }
   componentDidMount(){
-    const url=`${base_url}/messages`;
+   let url=`${base_url}/messages`;
     AsyncStorage.getItem('user_id').then((user_id)=>{
       
       if(user_id){
-      
+        url+='/'+user_id;
         this.setState({user_id,is_registered:true},()=>{
 
           fetch(url).then(r=>r.json())
-          .then((messages)=>this.setState({messages}))
+          .then((messages)=>this.setState({messages},()=>console.log(messages)))
 
           
         });

@@ -25,7 +25,7 @@ export default class Profile extends Component {
     const url=`${base_url}/volunteer/single/${this.state.user_id}`;
     
     fetch(url).then(r=>r.json())
-    .then((volunteers)=>this.setState({volunteers}))
+    .then((response)=>this.setState({volunteers:response.data}))
   }
   componentDidMount = () => {
     AsyncStorage.getItem('user_id').then((user_id)=>{
@@ -43,12 +43,13 @@ export default class Profile extends Component {
     if(this.state.volunteers && this.state.volunteers.length>0){
         return(
           this.state.volunteers.map((e,i)=><ListItem key={i}>
-            <Text>{e.title}</Text>
+            <Text style={{fontWeight:'600'}}>{e.title}</Text>
+            <Text>  on {e.created_at}</Text>
           </ListItem>)
         )
     }else{
       return [
-        <ListItem>
+        <ListItem key={1}>
           <Text>Nothing to display...</Text>
         </ListItem>
       ]
@@ -79,7 +80,9 @@ export default class Profile extends Component {
           <View >
           <List >
            		<ListItem style={styles.bodyContent}>
-           			<Text style={[styles.name,{fontSize:20,fontWeight:'800'}]}>Upcoming Events</Text>
+           			<Text style={[styles.name,{fontSize:20,fontWeight:'800'}]}>
+                   Events you have volunteered for
+                 </Text>
            		</ListItem>
            		  {this.render_volunteer()}
            </List>
