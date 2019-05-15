@@ -26,6 +26,10 @@ export default class Message extends Component {
 
           
         });
+        
+      }else{
+        fetch(url).then(r=>r.json())
+          .then((messages)=>this.setState({messages},()=>console.log(messages)))
       }
       
     })
@@ -35,9 +39,9 @@ export default class Message extends Component {
     
   }
 
-  volunteer=(event_id)=>{
+  volunteer(event_id){
     const url=`${base_url}/volunteer`;
-    
+    console.log({url,event_id,user_id:this.state.user_id})
     fetch(url, {
       method: 'POST',
       headers: {
@@ -48,6 +52,16 @@ export default class Message extends Component {
         user_id: this.state.user_id,
         event_id
       }),
+    }).then(r=>{
+      console.log({r})
+      return r.json()
+    }).then((response)=>{
+      console.log(response)
+      if(response.status=='notok'){
+        alert('You have already volunteered.')
+      }else{
+        alert('You have volunteered.')
+      }
     });
   }
 
@@ -72,7 +86,7 @@ export default class Message extends Component {
         
         {(this.state.is_registered)?<Button block
           onPress={
-            (e)=>this.volunteer(e.id)
+            ()=>this.volunteer(e.event_id)
           }
           
         >

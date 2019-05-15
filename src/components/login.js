@@ -6,6 +6,7 @@ import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import { Actions } from 'react-native-router-flux';
 import {base_url} from '../../config';
+import RNRestart from 'react-native-restart'; // Import package from node modules
 
 export default class Login extends Component {
 
@@ -40,7 +41,7 @@ export default class Login extends Component {
         
         AsyncStorage.setItem('user_id',`${response.user.id}`);
         AsyncStorage.setItem('user',JSON.stringify(response.user));
-        Actions.reset('home');
+        RNRestart.Restart();
       }
     })
     

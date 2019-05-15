@@ -24,6 +24,7 @@ import firebase from 'react-native-firebase';
 import Message from './src/components/Message';
 import Login from './src/components/login';
 import SignUp from './src/components/signup';
+import TimelineView from './src/components/Timeline';
 
 export default class App extends Component{
 
@@ -153,9 +154,10 @@ export default class App extends Component{
                 <Scene key='pdf' component={PdfViewer} title='NewsLetter'/>
                 <Scene key='message' component={Message} title='Messages'/>
                 
-                <Scene key="login" component={Login} initial />
+                <Scene key="login" component={Login}  />
                 <Scene key="signup" component={SignUp}/>
-                </Stack>
+                <Scene key="timeline" component={TimelineView} initial/>
+                  </Stack>
                 
                 
         </Drawer>
