@@ -1,4 +1,4 @@
-package com.rotary;
+package com.rotarymegapolis;
 
 import com.facebook.react.ReactActivity;
 

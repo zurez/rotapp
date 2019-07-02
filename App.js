@@ -57,7 +57,7 @@ export default class App extends Component{
           key2: 'value2',
         });
       notification.android.setBigPicture('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_iU8Yzjy2pQ4R-7uBQBJtxVfqG5F91V7jqXpbgcdmztDB92oEaQ')
-     notification.android.setPriority(firebase.notifications.Android.Priority.High) /// set to High
+      notification.android.setPriority(firebase.notifications.Android.Priority.High) /// set to High
       notification.android.setChannelId("test-channel")  ///for android 8.0 and above
       try{
         await firebase.notifications().displayNotification(notification)
@@ -140,7 +140,7 @@ export default class App extends Component{
            >
       
            <Stack key="root">
-               <Scene key="home" component={HomeComponent} title='Home' />
+               <Scene key="home" component={HomeComponent} title='Home' initial/>
                 <Scene  key='events' component={LandingComponent}  title="Events"/>
                 <Scene  key='gallery' component={Gallery} title="Gallery"/>
                 <Scene key='office_bearers' component={OfficeBearers} title='Office Bearers'/>
@@ -156,7 +156,7 @@ export default class App extends Component{
                 
                 <Scene key="login" component={Login}  />
                 <Scene key="signup" component={SignUp}/>
-                <Scene key="timeline" component={TimelineView} initial/>
+                <Scene key="timeline" component={TimelineView} />
                   </Stack>
                 
                 

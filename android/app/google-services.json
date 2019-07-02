@@ -8,12 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:87428032080:android:9d13ffdae2ea685a",
+        "mobilesdk_app_id": "1:87428032080:android:21d3d0b46d5bcb9a",
         "android_client_info": {
-          "package_name": "com.rotary"
+          "package_name": "com.rotarymegapolis"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "87428032080-i8qvj0jersrb25d4kdvj6pqn62a5rgrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAyhw7DVANIDGa8l2GiRg2YDqXuB7-3low"
